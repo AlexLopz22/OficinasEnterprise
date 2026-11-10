@@ -1,510 +1,665 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Oficinas Enterprise</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --paper: #E8E2D0;
-    --paper-card: #F3EFE3;
-    --ink: #24291F;
-    --ink-soft: #55584C;
-    --line: #C9C0A4;
-    --stamp: #A33227;
-    --brass: #B08A3E;
-    --focus: #1E5AA8;
-    --maps: #1F7A4D;
-    --waze: #2B6FD1;
-  }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Oficinas Enterprise</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+  <style>
+    html {
+      min-height: 100%;
+    }
+    :root {
+      --paper: #E5EBDD;
+      --paper-card: #F4F6ED;
+      --ink: #1D3025;
+      --ink-soft: #637467;
+      --line: #C1D0BD;
+      --stamp: #39734D;
+      --brass: #8A9D5B;
+      --focus: #397A50;
+      --maps: #286B43;
+      --waze: #668C52;
 
-  *{ box-sizing: border-box; }
+      --green-dark: #193D2A;
+      --green-medium: #477A53;
+      --green-light: #D5E3D1;
+    }
 
-  body{
-    margin:0;
-    background:
-      radial-gradient(ellipse at top left, rgba(255,255,255,0.35), transparent 60%),
-      var(--paper);
-    color: var(--ink);
-    font-family: 'Inter', sans-serif;
-    -webkit-font-smoothing: antialiased;
-  }
+    * {
+      box-sizing: border-box;
+    }
 
-  ::selection{ background: var(--stamp); color: var(--paper-card); }
+    body {
+      margin: 0;
+      background:
+        radial-gradient(ellipse at top left, rgba(255, 255, 255, 0.65), transparent 60%),
+        linear-gradient(145deg, #EAF0E5, var(--paper));
+      color: var(--ink);
+      font-family: 'Inter', sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
 
-  header{
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 56px 24px 28px;
-  }
+    ::selection {
+      background: var(--green-medium);
+      color: #fff;
+    }
 
-  .eyebrow{
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 12px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--stamp);
-    display:flex;
-    align-items:center;
-    gap:10px;
-    margin-bottom: 16px;
-  }
-  .eyebrow::before{ content:""; width: 22px; height: 1px; background: var(--stamp); }
+    header {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 56px 24px 28px;
+    }
 
-  h1{
-    font-family: 'Fraunces', serif;
-    font-weight: 600;
-    font-size: clamp(2.1rem, 4.5vw, 3.2rem);
-    line-height: 1;
-    margin: 0 0 12px;
-    letter-spacing: -0.01em;
-  }
+    .eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--stamp);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
 
-  header p.lead{
-    max-width: 520px;
-    color: var(--ink-soft);
-    font-size: 1rem;
-    line-height: 1.55;
-    margin: 0;
-  }
+    .eyebrow::before {
+      content: "";
+      width: 22px;
+      height: 1px;
+      background: var(--stamp);
+    }
 
-  .controls{
-    max-width: 900px;
-    margin: 0 auto 8px;
-    padding: 0 24px;
-  }
+    h1 {
+      font-family: 'Fraunces', serif;
+      font-weight: 600;
+      font-size: clamp(2.1rem, 4.5vw, 3.2rem);
+      line-height: 1;
+      margin: 0 0 12px;
+      letter-spacing: -0.01em;
+      color: var(--green-dark);
+    }
 
-  .drawer{
-    background: var(--paper-card);
-    border: 1px solid var(--line);
-    border-radius: 4px;
-    padding: 16px 20px;
-    display:flex;
-    align-items:center;
-    gap: 12px;
-  }
+    header p.lead {
+      max-width: 520px;
+      color: var(--ink-soft);
+      font-size: 1rem;
+      line-height: 1.65;
+      margin: 0;
+    }
 
-  .drawer label{
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--ink-soft);
-    white-space: nowrap;
-  }
+    .controls {
+      max-width: 900px;
+      margin: 0 auto 8px;
+      padding: 0 24px;
+    }
 
-  #buscador{
-    flex: 1;
-    border: none;
-    background: transparent;
-    font-family: 'Fraunces', serif;
-    font-size: 1.1rem;
-    color: var(--ink);
-    padding: 4px 2px;
-    outline: none;
-  }
-  #buscador::placeholder{ color: #9a927a; font-family: 'Inter', sans-serif; font-size: 0.95rem; }
+    .drawer {
+      background: rgba(244, 246, 237, 0.9);
+      border: 1px solid var(--line);
+      border-left: 4px solid var(--green-medium);
+      border-radius: 8px;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 4px 14px rgba(29, 48, 37, 0.04);
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
 
-  #contador{
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 12px;
-    color: var(--ink-soft);
-    white-space: nowrap;
-  }
+    .drawer:focus-within {
+      border-color: var(--green-medium);
+      box-shadow: 0 0 0 3px rgba(71, 122, 83, 0.12);
+    }
 
-  #buscador:focus-visible, .card:focus-visible, .btn:focus-visible{
-    outline: 2px solid var(--focus);
-    outline-offset: 2px;
-  }
+    .drawer label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--green-medium);
+      white-space: nowrap;
+    }
 
-  main{
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 24px 24px 100px;
-  }
+    #buscador {
+      flex: 1;
+      border: none;
+      background: transparent;
+      font-family: 'Fraunces', serif;
+      font-size: 1.1rem;
+      color: var(--ink);
+      padding: 4px 2px;
+      outline: none;
+    }
 
-  #grid{
-    display:grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 18px;
-  }
-  @media (max-width: 640px){ #grid{ grid-template-columns: 1fr; } }
+    #buscador::placeholder {
+      color: #93A492;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+    }
 
-  .card{
-    position: relative;
-    background: var(--paper-card);
-    border: 1px solid var(--line);
-    border-radius: 3px;
-    padding: 20px 20px 18px;
-    display:flex;
-    flex-direction: column;
-    gap: 12px;
-    transition: transform 0.15s ease, box-shadow 0.15s ease;
-  }
-  .card:hover{ transform: translateY(-2px); box-shadow: 0 8px 20px rgba(36,41,31,0.12); }
+    #contador {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--green-medium);
+      white-space: nowrap;
+    }
 
-  .card::before{
-    content:"";
-    position:absolute;
-    top: 14px; left: 14px;
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    background: var(--paper);
-    box-shadow: inset 0 1px 2px rgba(0,0,0,0.25);
-  }
+    #buscador:focus-visible,
+    .card:focus-visible,
+    .btn:focus-visible {
+      outline: 2px solid var(--focus);
+      outline-offset: 3px;
+    }
 
-  .indice{
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10.5px;
-    color: var(--brass);
-    letter-spacing: 0.06em;
-    padding-left: 20px;
-  }
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 24px 24px 100px;
+    }
 
-  .card h3{
-    font-family: 'Fraunces', serif;
-    font-size: 1.2rem;
-    font-weight: 600;
-    margin: 0;
-    line-height: 1.2;
-  }
+    #grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
 
-  .card .direccion{
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 12.5px;
-    line-height: 1.5;
-    color: var(--ink-soft);
-    margin: 0;
-    padding-top: 8px;
-    border-top: 1px dashed var(--line);
-  }
+    @media (max-width: 640px) {
+      #grid {
+        grid-template-columns: 1fr;
+      }
+    }
 
-  .botones{
-    display:flex;
-    gap: 8px;
-    margin-top: 4px;
-  }
+    .card {
+      position: relative;
+      background: var(--paper-card);
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      padding: 22px 20px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+      overflow: hidden;
+    }
 
-  .btn{
-    flex: 1;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap: 6px;
-    text-decoration: none;
-    font-family: 'Inter', sans-serif;
-    font-weight: 600;
-    font-size: 0.82rem;
-    padding: 9px 10px;
-    border-radius: 3px;
-    border: 1.5px solid transparent;
-    transition: filter 0.15s ease;
-  }
-  .btn:hover{ filter: brightness(1.08); }
-  .btn svg{ width: 15px; height: 15px; flex-shrink: 0; }
+    .card::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, var(--green-medium), var(--brass));
+      opacity: 0.8;
+    }
 
-  .btn-maps{ background: var(--maps); color: #fff; }
-  .btn-waze{ background: var(--waze); color: #fff; }
+    .card:hover {
+      transform: translateY(-3px);
+      border-color: #9DB99C;
+      box-shadow: 0 10px 24px rgba(29, 48, 37, 0.10);
+    }
 
-  #vacio{
-    display:none;
-    text-align:center;
-    padding: 50px 20px;
-    color: var(--ink-soft);
-    font-family: 'Fraunces', serif;
-    font-size: 1.2rem;
-  }
-  #vacio span{
-    display:block;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--stamp);
-    margin-bottom: 8px;
-  }
+    .card::before {
+      content: "";
+      position: absolute;
+      top: 17px;
+      right: 17px;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--green-light);
+      border: 2px solid var(--green-medium);
+    }
 
-  footer{
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 0 24px 50px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    color: var(--ink-soft);
-    text-align:center;
-  }
+    .indice {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10.5px;
+      color: var(--green-medium);
+      letter-spacing: 0.08em;
+      padding-left: 0;
+    }
 
-  @media (prefers-reduced-motion: reduce){ .card{ transition:none; } }
-</style>
+    .card h3 {
+      font-family: 'Fraunces', serif;
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin: 0;
+      line-height: 1.25;
+      color: var(--green-dark);
+    }
+
+    .card .direccion {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12.5px;
+      line-height: 1.6;
+      color: var(--ink-soft);
+      margin: 0;
+      padding-top: 10px;
+      border-top: 1px dashed var(--line);
+    }
+
+    .botones {
+      display: flex;
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .btn {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      text-decoration: none;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 0.82rem;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1.5px solid transparent;
+      transition: transform 0.15s ease, filter 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .btn:hover {
+      filter: brightness(1.08);
+      transform: translateY(-1px);
+      box-shadow: 0 3px 8px rgba(29, 48, 37, 0.12);
+    }
+
+    .btn svg {
+      width: 15px;
+      height: 15px;
+      flex-shrink: 0;
+    }
+
+    .btn-maps {
+      background: var(--maps);
+      color: #fff;
+    }
+
+    .btn-waze {
+      background: var(--waze);
+      color: #fff;
+    }
+
+    #vacio {
+      display: none;
+      text-align: center;
+      padding: 50px 20px;
+      color: var(--ink-soft);
+      font-family: 'Fraunces', serif;
+      font-size: 1.2rem;
+    }
+
+    #vacio span {
+      display: block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--green-medium);
+      margin-bottom: 8px;
+    }
+
+    footer {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 24px 50px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--ink-soft);
+      text-align: center;
+    }
+
+    @media (max-width: 480px) {
+      header {
+        padding-top: 40px;
+      }
+
+      .drawer {
+        padding: 14px;
+        gap: 8px;
+      }
+
+      .drawer label {
+        font-size: 10px;
+      }
+
+      .card {
+        padding: 20px 17px 16px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      .card,
+      .btn,
+      .drawer {
+        transition: none;
+      }
+    }
+  </style>
 </head>
+
 <body>
 
-<header>
-  <div class="eyebrow">Bloc de ubicaciones</div>
-  <h1>Oficinas Enterprise</h1>
-  <p class="lead">Busca por nombre o ciudad y pulsa Maps o Waze para abrir la ruta directamente.</p>
-</header>
+  <header>
+    <div class="eyebrow">Bloc de ubicaciones</div>
+    <h1>Oficinas Enterprise</h1>
+    <p class="lead">Busca por nombre o ciudad y pulsa Maps o Waze para abrir la ruta directamente.</p>
+  </header>
 
-<div class="controls">
-  <div class="drawer">
-    <label for="buscador">Buscar</label>
-    <input type="text" id="buscador" placeholder="nombre, código..." autocomplete="off">
-    <span id="contador"></span>
+  <div class="controls">
+    <div class="drawer">
+      <label for="buscador">Buscar</label>
+      <input type="text" id="buscador" placeholder="nombre, código..." autocomplete="off">
+      <span id="contador"></span>
+    </div>
   </div>
-</div>
 
-<main>
-  <div id="grid"></div>
-  <div id="vacio">
-    <span>Sin resultados</span>
-    Ninguna oficina coincide con esa búsqueda.
-  </div>
-</main>
+  <main>
+    <div id="grid"></div>
+    <div id="vacio">
+      <span>Sin resultados</span>
+      Ninguna oficina coincide con esa búsqueda.
+    </div>
+  </main>
 
-<footer><a href="https://portfolio-alejandro-lopez.vercel.app/" style="color: var(--ink-soft);">© Alejandro López Olmedo</a> </footer>
+  <footer><a href="https://portfolio-alejandro-lopez.vercel.app/" style="color: var(--ink-soft);">© Alejandro López
+      Olmedo</a> </footer>
 
-<script type="application/json" id="datos-oficinas">
+  <script type="application/json" id="datos-oficinas">
 [
   {
     "id": 1,
     "nombre": "Enterprise Toledo (CP)",
-    "direccion": "Frente Estacion De Tren, P.º de la Rosa, 82, 45006 Toledo"
+    "direccion": "Frente Estacion De Tren, P.º de la Rosa, 82, 45006 Toledo",
+    "coordenadas": "39.86181513638286, -4.010743118759674"
   },
   {
     "id": 2,
     "nombre": "Enterprise Madrid Plaza España (CA)",
-    "direccion": "Pl. de España, S/N, Sótano 3 (Parking Público), 28013 Madrid"
+    "direccion": "Pl. de España, S/N, Sótano 3 (Parking Público), 28013 Madrid",
+    "coordenadas": "40.42266714977905, -3.712236650415802"
   },
   {
     "id": 3,
     "nombre": "Enterprise Cuenca (QC)",
-    "direccion": "Estacion Cuenca Fernando Zobel, N-320, S N, 16003 Cuenca"
+    "direccion": "Estacion Cuenca Fernando Zobel, N-320, S N, 16003 Cuenca",
+    "coordenadas": "40.03449752144715, -2.143435391352299"
   },
   {
     "id": 4,
     "nombre": "Enterprise Ciudad Real (C5)",
-    "direccion": "Estacion De Tren Ave, Av. de Europa, S N, Local 2, 13004 Ciudad Real, Cdad. Real"
+    "direccion": "Estacion De Tren Ave, Av. de Europa, S N, Local 2, 13004 Ciudad Real, Cdad. Real",
+    "coordenadas": "38.985138586004126, -3.913731013847761"
   },
   {
     "id": 5,
     "nombre": "Enterprise Puertollano (C6)",
-    "direccion": "Estacion Ave, 13500 Puertollano, Cdad. Real"
+    "direccion": "Estacion Ave, 13500 Puertollano, Cdad. Real",
+    "coordenadas": "38.69153496147262, -4.111344194781415"
   },
   {
     "id": 6,
     "nombre": "Enterprise Alcázar de San Juan (QK)",
-    "direccion": "Estacion, Av. Álvarez Guerra, S N, 13600 Alcázar de San Juan, Cdad. Real"
+    "direccion": "Estacion, Av. Álvarez Guerra, S N, 13600 Alcázar de San Juan, Cdad. Real",
+    "coordenadas": "39.39532283422455, -3.2053252430908246"
   },
   {
     "id": 7,
     "nombre": "Enterprise Albacete (C9)",
-    "direccion": "Estacion De Tren, C. Federico García Lorca, Sn, 02001 Albacete"
+    "direccion": "Estacion De Tren, C. Federico García Lorca, Sn, 02001 Albacete",
+    "coordenadas": "38.99894281964419, -1.8478315438927508"
   },
   {
     "id": 8,
     "nombre": "Enterprise Toledo Polígono (BT)",
-    "direccion": "C. Río Marches, 77, 45007 Toledo"
+    "direccion": "C. Río Marches, 77, 45007 Toledo",
+    "coordenadas": "39.870416019117094, -3.9495732933986702"
   },
   {
     "id": 9,
     "nombre": "Enterprise Leganés (CB)",
-    "direccion": "Edificio Elma, Ctra. Madrid-Toledo, Salida 9B, 28916 Leganés, Madrid"
+    "direccion": "Edificio Elma, Ctra. Madrid-Toledo, Salida 9B, 28916 Leganés, Madrid",
+    "coordenadas": "40.33893158881449, -3.724935611746454"
   },
   {
     "id": 10,
     "nombre": "Enterprise Ciudad del Automovil (MC)",
-    "direccion": "C. Marc Gené, 10, 28914 Leganés, Madrid"
+    "direccion": "C. Marc Gené, 10, 28914 Leganés, Madrid",
+    "coordenadas": "40.31079116695893, -3.775468490876459"
   },
   {
     "id": 11,
     "nombre": "Enterprise Alcalá de Henares (MA)",
-    "direccion": "Vía Complutense, 141, 28805 Alcalá de Henares, Madrid"
+    "direccion": "Vía Complutense, 141, 28805 Alcalá de Henares, Madrid",
+    "coordenadas": "40.49639198309571, -3.3442698584876513"
   },
   {
     "id": 12,
     "nombre": "Enterprise Chamartín (C3)",
-    "direccion": "Parking Saba-Estates.Chamartin, C. de Agustín de Foxá, S N, Chamartín, 28036 Madrid"
+    "direccion": "Parking Saba-Estates.Chamartin, C. de Agustín de Foxá, S N, Chamartín, 28036 Madrid",
+    "coordenadas": "40.47320592535799, -3.6837823099944536"
   },
   {
     "id": 13,
     "nombre": "Enterprise Atocha (C7)",
-    "direccion": "40.404156, -3.684049"
+    "direccion": "Estacion Ave Atocha, Pl. del Emperador Carlos V, S N, 28045 Madrid",
+    "coordenadas": "40.404156, -3.684049"
   },
   {
     "id": 14,
     "nombre": "Enterprise Alcobendas (CF)",
-    "direccion": "Av. de Valdelaparra, 15, 28108 Alcobendas, Madrid"
+    "direccion": "Av. de Valdelaparra, 15, 28108 Alcobendas, Madrid",
+    "coordenadas": "40.538608600049415, -3.6456228847019245"
   },
   {
     "id": 15,
     "nombre": "Enterprise Talavera (CG)",
-    "direccion": "Av. Francisco Aguirre, 448, 45600 Talavera de la Reina, Toledo"
+    "direccion": "Av. Francisco Aguirre, 448, 45600 Talavera de la Reina, Toledo",
+    "coordenadas": "39.95814162360414, -4.848058484953646"
   },
   {
     "id": 16,
     "nombre": "Enterprise Pinto (CR)",
-    "direccion": "C. Garzas, 14, 28320 Pinto, Madrid"
+    "direccion": "C. Garzas, 14, 28320 Pinto, Madrid",
+    "coordenadas": "40.24833187429739, -3.716708483267261"
   },
   {
     "id": 17,
     "nombre": "Enterprise Las Rozas (CH)",
-    "direccion": "Pol. Ind. Europolis, C. París, Nave 10, 28232 Las Rozas de Madrid, Madrid"
+    "direccion": "Pol. Ind. Europolis, C. París, Nave 10, 28232 Las Rozas de Madrid, Madrid",
+    "coordenadas": "40.50083156839385, -3.8909977641848736"
   },
   {
     "id": 18,
     "nombre": "Enterprise Coslada (CQ)",
-    "direccion": "Av. del Jarama, 20, 28823 Coslada, Madrid"
+    "direccion": "Av. del Jarama, 20, 28823 Coslada, Madrid",
+    "coordenadas": "40.43275315564622, -3.5367916233440138"
   },
   {
     "id": 19,
     "nombre": "Enterprise Móstoles (CN)",
-    "direccion": "Citroen, Pol. Ind. Los Rosales, P.º de la Herrería, 1, 28933 Móstoles, Madrid"
+    "direccion": "Citroen, Pol. Ind. Los Rosales, P.º de la Herrería, 1, 28933 Móstoles, Madrid",
+    "coordenadas": "40.34080655487701, -3.8632106405220505"
   },
   {
     "id": 20,
     "nombre": "Enterprise Madrid Norte (MN)",
-    "direccion": "Aparcamiento EMT Nuestra Señora del Recuerdo, C. de la Hiedra, 26, Planta -1, Chamartín, 28036 Madrid"
+    "direccion": "Aparcamiento EMT Nuestra Señora del Recuerdo, C. de la Hiedra, 26, Planta -1, Chamartín, 28036 Madrid",
+    "coordenadas": "40.47231620921434, -3.6789670986141356"
   },
   {
     "id": 21,
     "nombre": "Enterprise Delicias (MD)",
-    "direccion": "Paseo de las Delicias, 82, Parking, Arganzuela, 28045 Madrid"
+    "direccion": "Paseo de las Delicias, 82, Parking, Arganzuela, 28045 Madrid",
+    "coordenadas": "40.39786684625738, -3.695244882881921"
   },
   {
     "id": 22,
     "nombre": "Enterprise IFEMA (MJ)",
-    "direccion": "C. de Alfonso Gómez, 18, San Blas-Canillejas, 28037 Madrid"
+    "direccion": "C. de Alfonso Gómez, 18, San Blas-Canillejas, 28037 Madrid",
+    "coordenadas": "40.43704687833949, -3.62769628875047"
   },
   {
     "id": 23,
     "nombre": "Enterprise Majadahonda (MH)",
-    "direccion": "Estacion De Servicio Galp, Calle del Dr. Mariano Alcaraz, 1, 28220 Majadahonda, Madrid"
+    "direccion": "Estacion De Servicio Galp, Calle del Dr. Mariano Alcaraz, 1, 28220 Majadahonda, Madrid",
+    "coordenadas": "40.45549323651459, -3.8676482364025335"
   },
   {
     "id": 24,
     "nombre": "Enterprise Guadalajara (PG)",
-    "direccion": "C. Lepanto, 2, 19004 Guadalajara"
+    "direccion": "C. Lepanto, 2, 19004 Guadalajara",
+    "coordenadas": "40.62609984308465, -3.194038212078992"
   },
   {
     "id": 25,
     "nombre": "Enterprise Torrejón de Ardoz (PN)",
-    "direccion": "Turismotor, Av. de la Constitución, 136, 28850 Torrejón de Ardoz, Madrid"
+    "direccion": "Turismotor, Av. de la Constitución, 136, 28850 Torrejón de Ardoz, Madrid",
+    "coordenadas": "40.45939894723734, -3.4623808475596296"
   },
   {
     "id": 26,
     "nombre": "Enterprise Rivas (PM)",
-    "direccion": "C. de la Fundición, 12, Iluscar, 28522 Rivas-Vaciamadrid, Madrid"
+    "direccion": "C. de la Fundición, 12, Iluscar, 28522 Rivas-Vaciamadrid, Madrid",
+    "coordenadas": "40.34959115544755, -3.5377044703106053"
   },
   {
     "id": 27,
     "nombre": "Enterprise Alcorcón (PL)",
-    "direccion": "C. Petróleo, 12, 28918 Leganés, Madrid"
+    "direccion": "C. Petróleo, 12, 28918 Leganés, Madrid",
+    "coordenadas": "40.35029700502251, -3.8018884994530167"
   },
   {
     "id": 28,
     "nombre": "Enterprise Aeropuerto T1 (T1)",
-    "direccion": "Apto De Madrid Adolfo Suarez International Airport, T1 - T4, Barajas, 28042 Madrid"
+    "direccion": "Apto De Madrid Adolfo Suarez International Airport, T1 - T4, Barajas, 28042 Madrid",
+    "coordenadas": "40.46325577535679, -3.5720204871266876"
   },
   {
     "id": 29,
     "nombre": "Enterprise Aeropuerto T4 (T4)",
-    "direccion": "Aeropuerto Adolfo Suárez Madrid-Barajas, P4 Aparcamiento, Barajas, 28042 Madrid"
+    "direccion": "Aeropuerto Adolfo Suárez Madrid-Barajas, P4 Aparcamiento, Barajas, 28042 Madrid",
+    "coordenadas": "40.487525867670264, -3.595387085176087"
   },
   {
     "id": 30,
     "nombre": "Enterprise Vallecas (MW)",
-    "direccion": "Gasolinera Bp Guadalcanal, C. Guadalcanal, 39, Villa de Vallecas, 28031 Madrid"
+    "direccion": "Gasolinera Bp Guadalcanal, C. Guadalcanal, 39, Villa de Vallecas, 28031 Madrid",
+    "coordenadas": "40.368373531155875, -3.6452300054942075"
   },
   {
     "id": 31,
     "nombre": "Enterprise Abroñigal (C7-C)",
-    "direccion": "C. de Méndez Álvaro, 82, Puente de Vallecas, 28053 Madrid"
+    "direccion": "C. de Méndez Álvaro, 82, Puente de Vallecas, 28053 Madrid",
+    "coordenadas": "40.39077406764159, -3.6746087015742703"
   },
   {
     "id": 32,
     "nombre": "Enterprise Lavadero Chamartín (C3-C)",
-    "direccion": "40.474201,-3.677663"
+    "direccion": "C. de la Hiedra, Chamartín, 28036 Madrid",
+    "coordenadas": "40.474201,-3.677663"
   },
   {
     "id": 33,
     "nombre": "Enterprise Taller Ruver",
-    "direccion": "C. Petróleo, 8, 28918 Leganés, Madrid"
+    "direccion": "C. Petróleo, 8, 28918 Leganés, Madrid",
+    "coordenadas": "40.35008608548796, -3.8020282373410055"
   },
   {
     "id": 34,
     "nombre": "Enterprise Campa T4 (T4-C)",
-    "direccion": "40.480823, -3.585825"
+    "direccion": "Barajas, 28042 Madrid",
+    "coordenadas": "40.480823, -3.585825"
+  },
+  {
+    "id": 35,
+    "nombre": "Enterprise Alcázar de San Juan Furgonetas (QK)",
+    "direccion": "Estacion, Av. Álvarez Guerra, S N, 13600 Alcázar de San Juan, Cdad. Real",
+    "coordenadas": "39.39731448885449, -3.205842443821441"
+  },
+  {
+    "id": 36,
+    "nombre": "Enterprise Albacete Base Aérea (C9)",
+    "direccion": "Base Aérea de Albacete (Los Llanos)",
+    "coordenadas": "38.95618868047284, -1.8482165492854805"
   }
 ]
 </script>
 
-<script>
-(function(){
-  const rawJSON = document.getElementById('datos-oficinas').textContent;
-  const oficinas = JSON.parse(rawJSON);
+  <script>
+    (function () {
+      const rawJSON = document.getElementById('datos-oficinas').textContent;
+      const oficinas = JSON.parse(rawJSON);
 
-  const grid = document.getElementById('grid');
-  const buscador = document.getElementById('buscador');
-  const contador = document.getElementById('contador');
-  const vacio = document.getElementById('vacio');
+      const grid = document.getElementById('grid');
+      const buscador = document.getElementById('buscador');
+      const contador = document.getElementById('contador');
+      const vacio = document.getElementById('vacio');
 
-  // Construye la URL de Google Maps a partir de la dirección de texto
-  function urlMaps(direccion){
-    return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(direccion)}`;
-  }
+      // Construye la URL de Google Maps a partir de la dirección de texto
+      function urlMaps(direccion) {
+        return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(direccion)}`;
+      }
 
-  // Construye la URL de Waze a partir de la dirección de texto
-  function urlWaze(direccion){
-    return `https://waze.com/ul?q=${encodeURIComponent(direccion)}&navigate=yes`;
-  }
+      // Construye la URL de Waze a partir de la dirección de texto
+      function urlWaze(direccion) {
+        return `https://waze.com/ul?q=${encodeURIComponent(direccion)}&navigate=yes`;
+      }
 
-  function crearTarjeta(oficina){
-    const card = document.createElement('article');
-    card.className = 'card';
-    card.tabIndex = 0;
+      function crearTarjeta(oficina) {
+        const card = document.createElement('article');
+        card.className = 'card';
+        card.tabIndex = 0;
 
-    card.innerHTML = `
-      <span class="indice">Nº ${String(oficina.id).padStart(3,'0')}</span>
+        card.innerHTML = `
+      <span class="indice">Nº ${String(oficina.id).padStart(3, '0')}</span>
       <h3>${oficina.nombre}</h3>
       <p class="direccion">${oficina.direccion}</p>
       <div class="botones">
-        <a class="btn btn-maps" href="${urlMaps(oficina.direccion)}" target="_blank" rel="noopener">
+        <a class="btn btn-maps" href="${urlMaps(oficina.coordenadas)}" target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0 1 18 0Z"/><circle cx="12" cy="10" r="3"/></svg>
           Maps
         </a>
-        <a class="btn btn-waze" href="${urlWaze(oficina.direccion)}" target="_blank" rel="noopener">
+        <a class="btn btn-waze" href="${urlWaze(oficina.coordenadas)}" target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 1 9 9"/><path d="M3 12h.01M21 12a9 9 0 0 0-9-9"/><circle cx="9" cy="10" r="1" fill="currentColor"/><circle cx="15" cy="10" r="1" fill="currentColor"/></svg>
           Waze
         </a>
       </div>
     `;
-    return card;
-  }
+        return card;
+      }
 
-  function filtrar(){
-    const q = buscador.value.trim().toLowerCase();
-    if (!q) return oficinas;
-    return oficinas.filter(o =>
-      (o.nombre + ' ' + o.direccion).toLowerCase().includes(q)
-    );
-  }
+      function filtrar() {
+        const q = buscador.value.trim().toLowerCase();
+        if (!q) return oficinas;
+        return oficinas.filter(o =>
+          (o.nombre + ' ' + o.direccion).toLowerCase().includes(q)
+        );
+      }
 
-  function render(){
-    const resultados = filtrar();
-    grid.innerHTML = '';
-    resultados.forEach(o => grid.appendChild(crearTarjeta(o)));
+      function render() {
+        const resultados = filtrar();
+        grid.innerHTML = '';
+        resultados.forEach(o => grid.appendChild(crearTarjeta(o)));
 
-    contador.textContent = `${resultados.length} / ${oficinas.length}`;
-    vacio.style.display = resultados.length === 0 ? 'block' : 'none';
-    grid.style.display = resultados.length === 0 ? 'none' : 'grid';
-  }
+        contador.textContent = `${resultados.length} / ${oficinas.length}`;
+        vacio.style.display = resultados.length === 0 ? 'block' : 'none';
+        grid.style.display = resultados.length === 0 ? 'none' : 'grid';
+      }
 
-  buscador.addEventListener('input', render);
-  render();
-})();
-</script>
+      buscador.addEventListener('input', render);
+      render();
+    })();
+  </script>
 
 </body>
+
 </html>
